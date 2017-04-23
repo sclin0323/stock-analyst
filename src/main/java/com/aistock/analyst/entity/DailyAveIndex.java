@@ -6,17 +6,15 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "dailyStocks")
-public class DailyStock {
+@Document(collection = "dailyAveIndexs")
+public class DailyAveIndex {
 
 	@Id
-	ObjectId dailyStockId; // Date String
+	ObjectId dailyAveIndexId;
 	
 	String date;
 	
-	String stockNum;
-	
-	String stockName;
+	String name;
 	
 	String monthStatus;
 	
@@ -30,20 +28,12 @@ public class DailyStock {
 
 	
 
-	public String getStockNum() {
-		return stockNum;
+	public ObjectId getDailyAveIndexId() {
+		return dailyAveIndexId;
 	}
 
-	public void setStockNum(String stockNum) {
-		this.stockNum = stockNum;
-	}
-
-	public ObjectId getDailyStockId() {
-		return dailyStockId;
-	}
-
-	public void setDailyStockId(ObjectId dailyStockId) {
-		this.dailyStockId = dailyStockId;
+	public void setDailyAveIndexId(ObjectId dailyAveIndexId) {
+		this.dailyAveIndexId = dailyAveIndexId;
 	}
 
 	public String getDate() {
@@ -54,15 +44,13 @@ public class DailyStock {
 		this.date = date;
 	}
 
-	public String getStockName() {
-		return stockName;
+	public String getName() {
+		return name;
 	}
 
-	public void setStockName(String stockName) {
-		this.stockName = stockName;
+	public void setName(String name) {
+		this.name = name;
 	}
-
-	
 
 	public String getMonthStatus() {
 		return monthStatus;
@@ -71,8 +59,6 @@ public class DailyStock {
 	public void setMonthStatus(String monthStatus) {
 		this.monthStatus = monthStatus;
 	}
-
-	
 
 	public String getDifStatus() {
 		return difStatus;
@@ -105,9 +91,6 @@ public class DailyStock {
 	public void setVolume(Integer volume) {
 		this.volume = volume;
 	}
-	
-	
-	
 	
 	
 }

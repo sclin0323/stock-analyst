@@ -1,10 +1,11 @@
-package com.aistock.analyst;
+package com.aistock.analyst.imports;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
+import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -15,8 +16,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.aistock.analyst.config.MongoConfig;
+import com.aistock.analyst.entity.DailyStock;
 import com.aistock.analyst.repository.DailyStockRepository;
-import com.aistock.analyst.service.DailyStockService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("com.aistock.analyst.service")
@@ -26,13 +27,10 @@ public class ImportDailyStock {
 	Logger log = LoggerFactory.getLogger(ImportDailyStock.class);
 	
 	@Autowired
-	DailyStockService dailyStockService;
-	
-	@Autowired
 	DailyStockRepository dailyStockRepository;
 
 	@Test
-	public void test001() throws Exception{
+	public void importDailyStock() throws Exception{
 		
 		dailyStockRepository.deleteAll();
 	
@@ -44,23 +42,38 @@ public class ImportDailyStock {
 			
 			log.info(file.getName());
 			
+			if(!file.getName().contains("個股日線追蹤")) {
+				continue;
+			}
+			
 			String line;
 			while ((line = br.readLine()) != null) {
 				
 				String[] strArray = line.replaceAll("\\s+", "").split(":");
 				
 				String date = strArray[0].split("\\.")[0];
+				String stockNum = (file.getName()).split("\\.")[0].split("_")[1];
 				String stockName = strArray[1];
-				String status = strArray[2];
-				Double range = Double.parseDouble(strArray[3]);
-				Double close = Double.parseDouble(strArray[4]);
-				Integer volume = (int)(Float.parseFloat(strArray[5]));
+				String monthStatus = strArray[2];
+				String difStatus = strArray[3];
+				Double range = Double.parseDouble(strArray[4]);
+				Double close = Double.parseDouble(strArray[5]);
+				Integer volume = (int)(Float.parseFloat(strArray[6]));
 				
-				dailyStockService.create(date, stockName, status, range, close, volume);
+				DailyStock o = new DailyStock();
 				
+				o.setDailyStockId(new ObjectId());
+				o.setDate(date);
+				o.setStockNum(stockNum);
+				o.setStockName(stockName);
+				o.setMonthStatus(monthStatus);
+				o.setDifStatus(difStatus);
+				o.setRange(range);
+				o.setClose(close);
+				o.setVolume(volume);
+				
+				dailyStockRepository.save(o);
 			}
-			
-			//break;
 			
 		}
 		

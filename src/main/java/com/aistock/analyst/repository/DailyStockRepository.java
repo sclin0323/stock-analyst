@@ -12,7 +12,9 @@ import com.aistock.analyst.entity.DailyStock;
 public interface DailyStockRepository extends MongoRepository<DailyStock, String> {
 	
 	
-	public List<DailyStock> findByDateAndStatus(String date, String status);
+	public List<DailyStock> findByDateAndMonthStatus(String date, String status);
+	
+	public List<DailyStock> findByDateAndDifStatus(String date, String status);
 	
 	//List<DailyStock> findByDateContaining(String date);
 }

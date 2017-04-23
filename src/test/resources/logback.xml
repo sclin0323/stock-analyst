@@ -1,42 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-		<!-- <withJansi>true</withJansi> -->
-		<encoder>
-			<pattern>%d{YYYY/MM/dd HH:mm:ss.SSS} [%-10.10thread] [%highlight(%-5level)] [%cyan(%-30.30logger{36})] - %msg%n</pattern>
-		</encoder>
-	</appender>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type
+         ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
 
-	<appender name="ROLLING-FILE"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-
-		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<pattern>%d{YYYY/MM/dd HH:mm:ss.SSS} [%-10.10thread] [%highlight(%-5level)] [%cyan(%-30.30logger{36})] - %msg%n</pattern>
-		</encoder>
-
-		<file>target/logs/eap-ws.log</file>
-
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<!-- rollover daily -->
-			<fileNamePattern>target/logs/eap-ws.%d{yyyy-MM-dd}.%i.log
-			</fileNamePattern>
-			<timeBasedFileNamingAndTriggeringPolicy
-				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-				<maxFileSize>20MB</maxFileSize>
-			</timeBasedFileNamingAndTriggeringPolicy>
-		</rollingPolicy>
-
-	</appender>
-
-	<logger name="com.fubon.*" level="info" additivity="true">
-		<appender-ref ref="ROLLING-FILE" />
-		<appender-ref ref="STDOUT" />
-	</logger>
-
-	<root level="info">
-		<appender-ref ref="ROLLING-FILE" />
-		<appender-ref ref="STDOUT" />
-	</root>
-
+  <root level="info">
+    <appender-ref ref="STDOUT" />
+  </root>
 </configuration>

@@ -41,16 +41,20 @@ public class DashBoardCreater {
 
 	@Test
 	public void dashBoardCreater() throws Exception {
-		
-		//dashboardRepository.deleteAll();
 
 		List<DailyAveIndex> lists = dailyAveIndexRepository.findByName("加權指數");
 
 		for (DailyAveIndex dailyAveIndex : lists) {
 			
-			Dashboard o = new Dashboard();
-			
 			String date = dailyAveIndex.getDate();
+			
+			// 檢查Dashboard是否已經存在
+			if(dashboardRepository.findOne(date) != null) {
+				log.info("存在!! "+date);
+				continue;
+			} 
+			
+			Dashboard o = new Dashboard();
 			
 			log.info(date);
 

@@ -36,7 +36,7 @@ public class DashboardInfo {
 		ObjectMapper mapper = new ObjectMapper();
 
 		// Object to JSON in file
-		mapper.writeValue(new File("C:\\Users\\a8303\\Desktop\\Dashboards.txt"), datas);
+		mapper.writeValue(new File("target/Dashboards.txt"), datas);
 
 		// Object to JSON in String
 		String jsonInString = mapper.writeValueAsString(datas);

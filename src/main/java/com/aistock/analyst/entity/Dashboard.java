@@ -12,20 +12,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Dashboard {
 
 	@Id
-	@JsonIgnore
-	ObjectId dashboardId;
-	
 	@JsonProperty("日期")
-	String date;
+	String dashboardId;
 	
 	@JsonProperty("星期")
 	String day;
-	
-	@JsonProperty("大盤收盤")
-	Double tesClose;
-	
-	@JsonProperty("美股收盤")
-	Double djiClose;
 	
 	@JsonProperty("月線狀態")
 	String monthStatus;
@@ -66,23 +57,12 @@ public class Dashboard {
 	@JsonProperty(StockStatus.MONTH_STATUSD)
 	Integer statusMonthD;
 	
-	@JsonProperty("狀態總數")
-	Integer total;
-
-	public ObjectId getDashboardId() {
+	public String getDashboardId() {
 		return dashboardId;
 	}
 
-	public void setDashboardId(ObjectId dashboardId) {
+	public void setDashboardId(String dashboardId) {
 		this.dashboardId = dashboardId;
-	}
-
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
 	}
 
 	public String getDay() {
@@ -91,22 +71,6 @@ public class Dashboard {
 
 	public void setDay(String day) {
 		this.day = day;
-	}
-
-	public Double getTesClose() {
-		return tesClose;
-	}
-
-	public void setTesClose(Double tesClose) {
-		this.tesClose = tesClose;
-	}
-
-	public Double getDjiClose() {
-		return djiClose;
-	}
-
-	public void setDjiClose(Double djiClose) {
-		this.djiClose = djiClose;
 	}
 
 	public String getMonthStatus() {
@@ -212,17 +176,6 @@ public class Dashboard {
 	public void setStatusMonthD(Integer statusMonthD) {
 		this.statusMonthD = statusMonthD;
 	}
-
-	public Integer getTotal() {
-		return total;
-	}
-
-	public void setTotal(Integer total) {
-		this.total = total;
-	}
-
-	
-	
 	
 	
 }

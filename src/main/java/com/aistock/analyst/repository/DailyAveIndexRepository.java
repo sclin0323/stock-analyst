@@ -13,5 +13,7 @@ import com.aistock.analyst.entity.DailyStock;
 public interface DailyAveIndexRepository extends MongoRepository<DailyAveIndex, String> {
 	
 	public List<DailyAveIndex> findByName(String name);
+	
+	public DailyAveIndex findByDateAndName(String date, String name);
 }
 

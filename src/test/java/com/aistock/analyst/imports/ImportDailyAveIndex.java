@@ -24,60 +24,60 @@ import com.aistock.analyst.repository.DailyAveIndexRepository;
 @ComponentScan("com.aistock.analyst.service")
 @Import(value = { MongoConfig.class })
 public class ImportDailyAveIndex {
-	
+
 	Logger log = LoggerFactory.getLogger(ImportDailyAveIndex.class);
-	
+
 	@Autowired
 	DailyAveIndexRepository dailyAveIndexRepository;
 
 	@Test
-	public void importDailyAveIndex() throws Exception{
-		
+	public void importDailyAveIndex() throws Exception {
+
 		dailyAveIndexRepository.deleteAll();
-		
+
 		ArrayList<File> files = new ArrayList<File>();
-		
+
 		files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_TSE.TW.log"));
 		files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_DJI.FS.log"));
 		files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_TSE28.TW.log"));
-		
+
 		for (final File file : files) {
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "Big5"));
-		
-		log.info(file.getName());
-		
-		String line;
-		while ((line = br.readLine()) != null) {
-			
-			log.info(line);
-			
-			String[] strArray = line.replaceAll("\\s+", "").split(":");
-			
-			String date = strArray[0].split("\\.")[0];
-			String name = strArray[1];
-			String monthStatus = strArray[2];
-			String difStatus = strArray[3];
-			Double range = Double.parseDouble(strArray[4]);
-			Double close = Double.parseDouble(strArray[5]);
-			Integer volume = ((int)(Float.parseFloat(strArray[6]))) / 10000000;
-			
-			DailyAveIndex o = new DailyAveIndex();
-			
-			o.setDailyAveIndexId(new ObjectId());
-			o.setDate(date);
-			o.setName(name);
-			o.setMonthStatus(monthStatus);
-			o.setDifStatus(difStatus);
-			o.setRange(range);
-			o.setClose(close);
-			o.setVolume(volume);
-			
-			dailyAveIndexRepository.save(o);
-			
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "Big5"));
+
+			log.info(file.getName());
+
+			String line;
+			while ((line = br.readLine()) != null) {
+
+				log.info(line);
+
+				String[] strArray = line.replaceAll("\\s+", "").split(":");
+
+				String date = strArray[0].split("\\.")[0];
+				String name = strArray[1];
+				String monthStatus = strArray[2];
+				String difStatus = strArray[3];
+				Double range = Double.parseDouble(strArray[4]);
+				Double close = Double.parseDouble(strArray[5]);
+				Integer volume = (int)(((long)(Float.parseFloat(strArray[6]))) / 100000000);
+
+				DailyAveIndex o = new DailyAveIndex();
+
+				o.setDailyAveIndexId(new ObjectId());
+				o.setDate(date);
+				o.setName(name);
+				o.setMonthStatus(monthStatus);
+				o.setDifStatus(difStatus);
+				o.setRange(range);
+				o.setClose(close);
+				o.setVolume(volume);
+
+				dailyAveIndexRepository.save(o);
+
+			}
 		}
-		}
-		
+
 	}
 
 }

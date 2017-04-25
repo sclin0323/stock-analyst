@@ -12,53 +12,53 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Dashboard {
 
 	@Id
-	@JsonProperty("日期")
 	String dashboardId;
-	
-	@JsonProperty("星期")
+
 	String day;
-	
-	@JsonProperty("月線狀態")
+
 	String monthStatus;
-	
-	@JsonProperty("DIF狀態")
+
 	String difStatus;
-	
-	@JsonProperty("收盤價")
+
 	Double close;
-	
-	@JsonProperty("漲跌點")
+
 	Double range;
-	
-	@JsonProperty("成交量")
+
 	Integer volume;
-	
-	@JsonProperty(StockStatus.DIF_STATUSA)
+
 	Integer statusDifA;
-	
-	@JsonProperty(StockStatus.DIF_STATUSB)
+
 	Integer statusDifB;
-	
-	@JsonProperty(StockStatus.DIF_STATUSC)
+
 	Integer statusDifC;
-	
-	@JsonProperty(StockStatus.DIF_STATUSD)
+
 	Integer statusDifD;
-	
-	@JsonProperty(StockStatus.MONTH_STATUSA)
+
 	Integer statusMonthA;
-	
-	@JsonProperty(StockStatus.MONTH_STATUSB)
+
 	Integer statusMonthB;
-	
-	@JsonProperty(StockStatus.MONTH_STATUSC)
+
 	Integer statusMonthC;
-	
-	@JsonProperty(StockStatus.MONTH_STATUSD)
-	Integer statusMonthD;
-	
+
+	int statusMonthD;
+
+	// 計算
+	Integer value1; // 後14日實際漲跌點
+
 	public String getDashboardId() {
 		return dashboardId;
+	}
+
+	public Integer getValue1() {
+		return value1;
+	}
+
+	public void setValue1(Integer value1) {
+		this.value1 = value1;
+	}
+
+	public void setStatusMonthD(int statusMonthD) {
+		this.statusMonthD = statusMonthD;
 	}
 
 	public void setDashboardId(String dashboardId) {
@@ -176,6 +176,5 @@ public class Dashboard {
 	public void setStatusMonthD(Integer statusMonthD) {
 		this.statusMonthD = statusMonthD;
 	}
-	
-	
+
 }

@@ -8,11 +8,11 @@ import com.aistock.analyst.status.StockStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Document(collection = "dashboards")
-public class Dashboard {
+@Document(collection = "finances")
+public class Finance {
 
 	@Id
-	String dashboardId;
+	String financeId;
 
 	String day;
 
@@ -26,6 +26,7 @@ public class Dashboard {
 
 	Integer volume;
 
+	// 個股統計
 	Integer statusDifA;
 
 	Integer statusDifB;
@@ -51,8 +52,6 @@ public class Dashboard {
 	
 	Integer value4; // 後1日實際漲跌點
 
-	
-	
 	public Integer getValue4() {
 		return value4;
 	}
@@ -77,10 +76,6 @@ public class Dashboard {
 		this.value3 = value3;
 	}
 
-	public String getDashboardId() {
-		return dashboardId;
-	}
-
 	public Integer getValue1() {
 		return value1;
 	}
@@ -93,8 +88,14 @@ public class Dashboard {
 		this.statusMonthD = statusMonthD;
 	}
 
-	public void setDashboardId(String dashboardId) {
-		this.dashboardId = dashboardId;
+	
+
+	public String getFinanceId() {
+		return financeId;
+	}
+
+	public void setFinanceId(String financeId) {
+		this.financeId = financeId;
 	}
 
 	public String getDay() {

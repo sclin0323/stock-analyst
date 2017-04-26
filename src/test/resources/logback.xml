@@ -14,11 +14,11 @@
 			<pattern>%d{YYYY/MM/dd HH:mm:ss.SSS} [%-10.10thread] [%-5level] [%-30.30logger{36}] - %msg%n</pattern>
 		</encoder>
 
-		<file>target/logs/stock-analyst/${HOSTNAME}/stock-analyst.log</file>
+		<file>target/logs/testing/stock-analyst.log</file>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- rollover daily -->
-			<fileNamePattern>target/logs/stock-analyst/${HOSTNAME}/stock-analyst.log.%d{yyyy-MM-dd}.%i
+			<fileNamePattern>target/logs/testing/stock-analyst.log.%d{yyyy-MM-dd}.%i
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">

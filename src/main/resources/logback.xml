@@ -17,11 +17,11 @@
 			<pattern>%d{YYYY/MM/dd HH:mm:ss.SSS} [%-10.10thread] [%-5level] [%-30.30logger{36}] - %msg%n</pattern>
 		</encoder>
 
-		<file>logs/eap-gw/${HOSTNAME}/eap-gw.log</file>
+		<file>target/logs/main/stock-analyst.log</file>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- rollover daily -->
-			<fileNamePattern>logs/eap-gw/${HOSTNAME}/eap-gw.log.%d{yyyy-MM-dd}.%i
+			<fileNamePattern>target/logs/main/stock-analyst.log.%d{yyyy-MM-dd}.%i
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">

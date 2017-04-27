@@ -26,67 +26,70 @@ public class Dashboard {
 
 	Integer volume;
 
-	Integer statusDifA;
+	Integer statusDifA;		// DIF持續走多
 
-	Integer statusDifB;
+	Integer statusDifB;		// DIF由多轉空
 
-	Integer statusDifC;
+	Integer statusDifC;		// DIF持續走空
 
-	Integer statusDifD;
+	Integer statusDifD;		// DIF由空轉多
 
-	Integer statusMonthA;
+	Integer statusMonthA;	// 月上季上
 
-	Integer statusMonthB;
+	Integer statusMonthB;	// 月下季上
 
-	Integer statusMonthC;
+	Integer statusMonthC;	// 月下季下
 
-	Integer statusMonthD;
+	Integer statusMonthD;	// 月上季下
 
 	// 計算
-	Integer value1; // 後14日實際漲跌點
+	Integer after14Days; // 後14日實際漲跌點
 	
-	Integer value2; // 後2日實際漲跌點
+	Integer after2Days; // 後2日實際漲跌點
 	
-	Integer value3; // 後3日實際漲跌點
+	Integer after3Days; // 後3日實際漲跌點
 	
-	Integer value4; // 後1日實際漲跌點
+	Integer after1Days; // 後1日實際漲跌點
+	
+	//Integer difAUntilDays; // 隔天連續出現DIF天數
+	
+	//Integer difAUntilDays; // 隔天連續出現DIF天數
 
-	
-	
-	public Integer getValue4() {
-		return value4;
+
+	public Integer getAfter14Days() {
+		return after14Days;
 	}
 
-	public void setValue4(Integer value4) {
-		this.value4 = value4;
+	public void setAfter14Days(Integer after14Days) {
+		this.after14Days = after14Days;
 	}
 
-	public Integer getValue2() {
-		return value2;
+	public Integer getAfter2Days() {
+		return after2Days;
 	}
 
-	public void setValue2(Integer value2) {
-		this.value2 = value2;
+	public void setAfter2Days(Integer after2Days) {
+		this.after2Days = after2Days;
 	}
 
-	public Integer getValue3() {
-		return value3;
+	public Integer getAfter3Days() {
+		return after3Days;
 	}
 
-	public void setValue3(Integer value3) {
-		this.value3 = value3;
+	public void setAfter3Days(Integer after3Days) {
+		this.after3Days = after3Days;
+	}
+
+	public Integer getAfter1Days() {
+		return after1Days;
+	}
+
+	public void setAfter1Days(Integer after1Days) {
+		this.after1Days = after1Days;
 	}
 
 	public String getDashboardId() {
 		return dashboardId;
-	}
-
-	public Integer getValue1() {
-		return value1;
-	}
-
-	public void setValue1(Integer value1) {
-		this.value1 = value1;
 	}
 
 	public void setStatusMonthD(int statusMonthD) {

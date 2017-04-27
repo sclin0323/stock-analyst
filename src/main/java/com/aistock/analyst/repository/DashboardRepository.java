@@ -18,5 +18,7 @@ public interface DashboardRepository extends MongoRepository<Dashboard, String> 
 	public Page<Dashboard> findByDifStatus(String difStatus, Pageable pageable);
 
 	public Page<Dashboard> findByDifStatusAndMonthStatusContaining(String difStatus, String monthStatus, Pageable pageable);
+	
+	public List<Dashboard> findByDifStatusAndMonthStatusContaining(String difStatus, String monthStatus);
 }
 

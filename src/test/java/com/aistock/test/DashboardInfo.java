@@ -1,4 +1,4 @@
-package com.aistock.analyst.info;
+package com.aistock.test;
 
 import java.io.File;
 import java.util.List;

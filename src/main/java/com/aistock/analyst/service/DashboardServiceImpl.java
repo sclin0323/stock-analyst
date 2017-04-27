@@ -32,7 +32,7 @@ public class DashboardServiceImpl implements DashboardService {
 
 		page.getContent().forEach((Dashboard o) -> {
 			// 後 2 3 14日實際漲跌點
-			setValues(o);
+			// setValues(o);
 		});
 
 		return page;
@@ -45,7 +45,7 @@ public class DashboardServiceImpl implements DashboardService {
 
 		page.getContent().forEach((Dashboard o) -> {
 			// 後 2 3 14日實際漲跌點
-			setValues(o);
+			// setValues(o);
 		});
 
 		return page;
@@ -53,17 +53,19 @@ public class DashboardServiceImpl implements DashboardService {
 
 	@Override
 	public Page<Dashboard> findByDifStatusAndMonthStatus(String difStatus, String monthStatus, Pageable pageable) {
-		
-		Page<Dashboard> page = dashboardRepository.findByDifStatusAndMonthStatusContaining(difStatus, monthStatus, pageable);
+
+		Page<Dashboard> page = dashboardRepository.findByDifStatusAndMonthStatusContaining(difStatus, monthStatus,
+				pageable);
 
 		page.getContent().forEach((Dashboard o) -> {
-			 // 後 2 3 14日實際漲跌點			
-			setValues(o);
+			// 後 2 3 14日實際漲跌點
+			// setValues(o);
 		});
 
 		return page;
 	}
 
+	/*
 	private void setValues(Dashboard o) {
 
 		SimpleDateFormat dt1 = new SimpleDateFormat("yyyyMMdd");
@@ -89,25 +91,25 @@ public class DashboardServiceImpl implements DashboardService {
 				// 14天
 				Double value1 = datas.get(0).getClose() - o.getClose();
 				o.setValue1(value1.intValue());
-				
+
 				// 2天
-				Double value2 = datas.get(datas.size()-2).getClose() - o.getClose();
+				Double value2 = datas.get(datas.size() - 2).getClose() - o.getClose();
 				o.setValue2(value2.intValue());
-				
+
 				// 3天
-				Double value3 = datas.get(datas.size()-3).getClose() - o.getClose();
+				Double value3 = datas.get(datas.size() - 3).getClose() - o.getClose();
 				o.setValue3(value3.intValue());
-				
+
 				// 1天
-				Double value4 = datas.get(datas.size()-1).getClose() - o.getClose();
+				Double value4 = datas.get(datas.size() - 1).getClose() - o.getClose();
 				o.setValue4(value4.intValue());
-				
-				
+
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
 	}
+	*/
 
 }

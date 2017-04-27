@@ -25,9 +25,9 @@ import com.aistock.analyst.status.StockStatus;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("com.aistock.analyst.service")
 @Import(value = { MongoConfig.class })
-public class FinanceCreater {
+public class U3FinanceCreater {
 
-	Logger log = LoggerFactory.getLogger(FinanceCreater.class);
+	Logger log = LoggerFactory.getLogger(U3FinanceCreater.class);
 
 	@Autowired
 	DailyAveIndexRepository dailyAveIndexRepository;

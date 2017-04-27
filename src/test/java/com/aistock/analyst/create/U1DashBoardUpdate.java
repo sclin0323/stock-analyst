@@ -25,9 +25,9 @@ import com.aistock.analyst.status.StockStatus;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("com.aistock.analyst.service")
 @Import(value = { MongoConfig.class })
-public class DashBoardCreater {
+public class U1DashBoardUpdate {
 
-	Logger log = LoggerFactory.getLogger(DashBoardCreater.class);
+	Logger log = LoggerFactory.getLogger(U1DashBoardUpdate.class);
 
 	@Autowired
 	DailyAveIndexRepository dailyAveIndexRepository;
@@ -66,7 +66,7 @@ public class DashBoardCreater {
 			o.setRange(dailyAveIndex.getRange());
 			o.setVolume(dailyAveIndex.getVolume());
 			
-			// 個股 FID狀態
+			// 個股 DIF狀態
 			o.setStatusDifA(dailyStockRepository.findByDateAndDifStatus(date,StockStatus.DIF_STATUSA).size());
 			o.setStatusDifB(dailyStockRepository.findByDateAndDifStatus(date,StockStatus.DIF_STATUSB).size());
 			o.setStatusDifC(dailyStockRepository.findByDateAndDifStatus(date,StockStatus.DIF_STATUSC).size());

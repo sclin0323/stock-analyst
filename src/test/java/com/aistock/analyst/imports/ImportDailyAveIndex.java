@@ -33,12 +33,9 @@ public class ImportDailyAveIndex {
 	@Test
 	public void importDailyAveIndex() throws Exception {
 
-		dailyAveIndexRepository.deleteAll();
-
 		ArrayList<File> files = new ArrayList<File>();
 
 		files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_TSE.TW.log"));
-		//files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_DJI.FS.log"));
 		files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_TSE28.TW.log"));
 
 		for (final File file : files) {
@@ -72,7 +69,12 @@ public class ImportDailyAveIndex {
 				o.setRange(range);
 				o.setClose(close);
 				o.setVolume(volume);
-
+				
+				// 檢查是否已經存在
+				if(dailyAveIndexRepository.findByDateAndName(date, name) != null){
+					continue;
+				}
+				
 				dailyAveIndexRepository.save(o);
 
 			}

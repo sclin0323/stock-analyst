@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.bson.types.ObjectId;
 import org.junit.Test;
@@ -31,8 +34,6 @@ public class ImportDailyStock {
 
 	@Test
 	public void importDailyStock() throws Exception{
-		
-		dailyStockRepository.deleteAll();
 	
 		File folder = new File("C:\\SysJust\\XQLite\\XS\\Print");
 		
@@ -46,6 +47,14 @@ public class ImportDailyStock {
 				continue;
 			}
 			
+			// 找出該 stockNum 已經存在的 date
+			String stockName = (file.getName().split("\\."))[0].split("_")[1];
+			List<DailyStock> lists = dailyStockRepository.findByStockNum(stockName);
+			Map<String, Boolean> maps = new HashMap<String, Boolean>();
+			for(DailyStock o:lists) {
+				maps.put(o.getDate(), true);
+			}
+			
 			String line;
 			while ((line = br.readLine()) != null) {
 				
@@ -53,7 +62,6 @@ public class ImportDailyStock {
 				
 				String date = strArray[0].split("\\.")[0];
 				String stockNum = (file.getName()).split("\\.")[0].split("_")[1];
-				String stockName = strArray[1];
 				String monthStatus = strArray[2];
 				String difStatus = strArray[3];
 				Double range = Double.parseDouble(strArray[4]);
@@ -72,8 +80,15 @@ public class ImportDailyStock {
 				o.setClose(close);
 				o.setVolume(volume);
 				
+				// 檢查是否已經存在
+				if(maps.containsKey(date) == true){
+					//log.info("存在!! "+date+" "+stockNum);
+					continue;
+				}
+				
 				dailyStockRepository.save(o);
 			}
+			
 			
 		}
 		

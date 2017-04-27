@@ -17,8 +17,11 @@ public interface DailyStockRepository extends MongoRepository<DailyStock, String
 	
 	public List<DailyStock> findByDateAndDifStatus(String date, String status);
 	
-	@Query(value = "{}", fields = "{'jarFileBytes': 0}")
-	public List<DailyStock> findField();
+	//@Query(value="{}", fields="{ 'date' : 1, 'stockNum' : 1}")
+	//public List<DailyStock> findDateAndStockNumAll();
 	//List<DailyStock> findByDateContaining(String date);
+
+	@Query(value="{ 'stockNum' : ?0 }", fields="{ 'date' : 1}")
+	public List<DailyStock> findByStockNum(String stockNum);
 }
 

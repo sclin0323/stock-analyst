@@ -1,5 +1,6 @@
 package com.aistock.test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -29,9 +30,20 @@ Logger log = LoggerFactory.getLogger(ImportDailyStock.class);
 	@Test
 	public void test001() throws Exception{
 		
-		log.info("=============================");
-		//List<DailyStock> datas = dailyStockRepository.findDateAndStockNumAll();
-		//log.info("Size: "+datas.size());
+		//String[] lists = new String["123","123"];
+		
+		//String[] lists = {"Cheese", "Pepperoni", "Black Olives"};
+		
+		List<String> lists = new ArrayList<String>();
+		lists.add("1101");
+		lists.add("1210");
+		//lists.add("2345");
+		
+		
+		List<DailyStock> datas = dailyStockRepository.findByDateAndMonthStatusAndStockNumIn("19980408", "月上季上", lists);
+		
+		log.info("Size: "+datas.size());
+		
 	}
 	
 	

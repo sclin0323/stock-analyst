@@ -22,6 +22,10 @@ import com.aistock.analyst.repository.DailyStockRepository;
 import com.aistock.analyst.repository.DashboardRepository;
 import com.aistock.analyst.status.StockStatus;
 
+
+/*
+ * 建立大盤 統計表 (Dashboards)
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("com.aistock.analyst.service")
 @Import(value = { MongoConfig.class })

@@ -1,5 +1,6 @@
 package com.aistock.analyst.repository;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -17,9 +18,10 @@ public interface DailyStockRepository extends MongoRepository<DailyStock, String
 	
 	public List<DailyStock> findByDateAndDifStatus(String date, String status);
 	
-	//@Query(value="{}", fields="{ 'date' : 1, 'stockNum' : 1}")
-	//public List<DailyStock> findDateAndStockNumAll();
-	//List<DailyStock> findByDateContaining(String date);
+	
+	public List<DailyStock> findByDateAndMonthStatusAndStockNumIn(String date, String status, List<String> stockNums);
+	
+	public List<DailyStock> findByDateAndDifStatusAndStockNumIn(String date, String status, List<String> stockNums);
 
 	@Query(value="{ 'stockNum' : ?0 }", fields="{ 'date' : 1}")
 	public List<DailyStock> findByStockNum(String stockNum);

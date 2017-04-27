@@ -21,6 +21,9 @@ import com.aistock.analyst.repository.DailyAveIndexRepository;
 import com.aistock.analyst.repository.DailyStockRepository;
 import com.aistock.analyst.repository.DashboardRepository;
 
+/*
+ * 更新 大盤Dashboards 1 2 3 14天上漲下跌點
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("com.aistock.analyst.service")
 @Import(value = { MongoConfig.class })
@@ -37,9 +40,7 @@ public class U2StockDifSumUpdate {
 	@Autowired
 	DailyStockRepository dailyStockRepository;
 	
-	/*
-	 * 更新 Dashboard 個股DIF狀態個數
-	 */
+	
 	@Test
 	public void test001() {
 		

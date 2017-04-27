@@ -48,8 +48,8 @@ public class ImportDailyStock {
 			}
 			
 			// 找出該 stockNum 已經存在的 date
-			String stockName = (file.getName().split("\\."))[0].split("_")[1];
-			List<DailyStock> lists = dailyStockRepository.findByStockNum(stockName);
+			String stockNum = (file.getName().split("\\."))[0].split("_")[1];
+			List<DailyStock> lists = dailyStockRepository.findByStockNum(stockNum);
 			Map<String, Boolean> maps = new HashMap<String, Boolean>();
 			for(DailyStock o:lists) {
 				maps.put(o.getDate(), true);
@@ -61,7 +61,7 @@ public class ImportDailyStock {
 				String[] strArray = line.replaceAll("\\s+", "").split(":");
 				
 				String date = strArray[0].split("\\.")[0];
-				String stockNum = (file.getName()).split("\\.")[0].split("_")[1];
+				String stockName = (file.getName()).split("\\.")[0].split("_")[1];
 				String monthStatus = strArray[2];
 				String difStatus = strArray[3];
 				Double range = Double.parseDouble(strArray[4]);

@@ -2,6 +2,7 @@ package com.aistock.analyst.create;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,11 +18,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.aistock.analyst.config.MongoConfig;
 import com.aistock.analyst.entity.DailyAveIndex;
 import com.aistock.analyst.entity.Dashboard;
+import com.aistock.analyst.entity.Finance;
 import com.aistock.analyst.repository.DailyAveIndexRepository;
 import com.aistock.analyst.repository.DailyStockRepository;
 import com.aistock.analyst.repository.DashboardRepository;
+import com.aistock.analyst.repository.FinanceRepository;
 import com.aistock.analyst.status.StockStatus;
 
+/*
+ * 建立和更新金融(Finances) 統計表 
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("com.aistock.analyst.service")
 @Import(value = { MongoConfig.class })
@@ -32,17 +38,52 @@ public class U3FinanceCreater {
 	@Autowired
 	DailyAveIndexRepository dailyAveIndexRepository;
 
-	//@Autowired
-	//DashboardRepository dashboardRepository;
+	@Autowired
+	FinanceRepository financeRepository;
 	
-	//@Autowired
-	//DailyStockRepository dailyStockRepository;
+	@Autowired
+	DailyStockRepository dailyStockRepository;
 	
 
 	@Test
 	public void dashBoardCreater() throws Exception {
 		
-		/*
+		List<String> fs = new ArrayList<String>();
+		fs.add("2801");
+		fs.add("2809");
+		fs.add("2812");
+		fs.add("2816");
+		fs.add("2820");
+		fs.add("2823");
+		fs.add("2832");
+		fs.add("2834");
+		fs.add("2836");
+		fs.add("2838");
+		fs.add("2845");
+		fs.add("2849");
+		fs.add("2850");
+		fs.add("2851");
+		fs.add("2852");
+		fs.add("2855");
+		fs.add("2856");
+		fs.add("2867");
+		fs.add("2880");
+		fs.add("2881");
+		fs.add("2882");
+		fs.add("2883");
+		fs.add("2884");
+		fs.add("2885");
+		fs.add("2886");
+		fs.add("2887");
+		fs.add("2888");
+		fs.add("2889");
+		fs.add("2890");
+		fs.add("2891");
+		fs.add("2892");
+		fs.add("5880");
+		fs.add("6005");
+		
+		
 
 		List<DailyAveIndex> lists = dailyAveIndexRepository.findByName("金融保險");
 
@@ -50,17 +91,18 @@ public class U3FinanceCreater {
 			
 			String date = dailyAveIndex.getDate();
 			
-			// 檢查Dashboard是否已經存在
-			if(dashboardRepository.findOne(date) != null) {
-				log.info("存在!! "+date);
+			// 檢查 Finances 是否已經存在
+			if(financeRepository.findOne(date) != null) {
 				continue;
 			} 
 			
-			Dashboard o = new Dashboard();
+			Finance o = new Finance();
 			
 			log.info(date);
+			
+			
 
-			o.setDashboardId(date);
+			o.setFinanceId(date);
 			o.setDay(getDay(dailyAveIndex.getDate()));
 			o.setMonthStatus(dailyAveIndex.getMonthStatus());
 			o.setDifStatus(dailyAveIndex.getDifStatus());
@@ -69,22 +111,22 @@ public class U3FinanceCreater {
 			o.setVolume(dailyAveIndex.getVolume());
 			
 			// 個股 FID狀態
-			o.setStatusDifA(dailyStockRepository.findByDateAndDifStatus(date,StockStatus.DIF_STATUSA).size());
-			o.setStatusDifB(dailyStockRepository.findByDateAndDifStatus(date,StockStatus.DIF_STATUSB).size());
-			o.setStatusDifC(dailyStockRepository.findByDateAndDifStatus(date,StockStatus.DIF_STATUSC).size());
-			o.setStatusDifD(dailyStockRepository.findByDateAndDifStatus(date,StockStatus.DIF_STATUSD).size());
+			o.setStatusDifA(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSA,fs).size());
+			o.setStatusDifB(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSB,fs).size());
+			o.setStatusDifC(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSC,fs).size());
+			o.setStatusDifD(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSD,fs).size());
 
 			// 個股 月線狀態
-			o.setStatusMonthA(dailyStockRepository.findByDateAndMonthStatus(date,StockStatus.MONTH_STATUSA).size());
-			o.setStatusMonthB(dailyStockRepository.findByDateAndMonthStatus(date,StockStatus.MONTH_STATUSB).size());
-			o.setStatusMonthC(dailyStockRepository.findByDateAndMonthStatus(date,StockStatus.MONTH_STATUSC).size());
-			o.setStatusMonthD(dailyStockRepository.findByDateAndMonthStatus(date,StockStatus.MONTH_STATUSD).size());
+			o.setStatusMonthA(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSA,fs).size());
+			o.setStatusMonthB(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSB,fs).size());
+			o.setStatusMonthC(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSC,fs).size());
+			o.setStatusMonthD(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSD,fs).size());
 
-			dashboardRepository.save(o);
-
+			financeRepository.save(o);
+			
 		}
 		
-		*/
+		
 
 	}
 

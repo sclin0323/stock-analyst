@@ -1,6 +1,7 @@
 package com.aistock.analyst.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aistock.analyst.entity.DailyStock;
 import com.aistock.analyst.entity.Finance;
+import com.aistock.analyst.repository.DailyStockRepository;
 import com.aistock.analyst.service.FinanceService;
+import com.aistock.analyst.status.StockStatus;
 import com.aistock.analyst.util.RestResponse;
 
 @RestController
@@ -30,6 +34,9 @@ public class FinanceController extends BaseController {
 
 	@Autowired(required = true)
 	FinanceService financeService;
+	
+	@Autowired(required = true)
+	DailyStockRepository dailyStockRepository;
 
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public RestResponse read(HttpServletRequest request, HttpServletResponse response, String difStatus, String monthStatus) throws IOException {
@@ -57,5 +64,20 @@ public class FinanceController extends BaseController {
 		return RestResponse.success(datas.getContent(), datas.getTotalElements());
 
 	}
+	
+	@RequestMapping(value = "/readFinanceStock", method = RequestMethod.GET)
+	public RestResponse readFinanceStock(HttpServletRequest request, HttpServletResponse response, String financeId) throws IOException {
+		
+		List<DailyStock> datas = dailyStockRepository.findByDateAndStockNumIn(financeId, StockStatus.FINANCES_LIST);
+		
+		datas.forEach((DailyStock o) -> {
+			o.setStockId(o.getDate()+o.getStockNum());
+		});
+
+		return RestResponse.success(datas, datas.size());
+
+	}
+	
+	
 
 }

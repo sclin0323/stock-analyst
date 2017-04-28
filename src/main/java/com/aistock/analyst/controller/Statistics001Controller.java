@@ -54,24 +54,24 @@ public class Statistics001Controller extends BaseController {
 		lists.add(getStatistics001("DIF由空轉多", "月下季下"));
 		lists.add(getStatistics001("DIF由空轉多", "月上季下"));
 
-		lists.add(getStatistics001("*********", "*******"));
-		lists.add(getStatistics001("DIF持續走多", "月"));
-		lists.add(getStatistics001("DIF由多轉空", "月"));
-		lists.add(getStatistics001("DIF持續走空", "月"));
-		lists.add(getStatistics001("DIF由空轉多", "月"));
-
-		lists.add(getStatistics001("*********", "*******"));
-		lists.add(getStatistics001("DIF持續走多", "月上"));
-		lists.add(getStatistics001("DIF持續走多", "月下"));
-
-		lists.add(getStatistics001("DIF由多轉空", "月上"));
-		lists.add(getStatistics001("DIF由多轉空", "月下"));
-
-		lists.add(getStatistics001("DIF持續走空", "月上"));
-		lists.add(getStatistics001("DIF持續走空", "月下"));
-
-		lists.add(getStatistics001("DIF由空轉多", "月上"));
-		lists.add(getStatistics001("DIF由空轉多", "月下"));
+//		lists.add(getStatistics001("*********", "*******"));
+//		lists.add(getStatistics001("DIF持續走多", "月"));
+//		lists.add(getStatistics001("DIF由多轉空", "月"));
+//		lists.add(getStatistics001("DIF持續走空", "月"));
+//		lists.add(getStatistics001("DIF由空轉多", "月"));
+//
+//		lists.add(getStatistics001("*********", "*******"));
+//		lists.add(getStatistics001("DIF持續走多", "月上"));
+//		lists.add(getStatistics001("DIF持續走多", "月下"));
+//
+//		lists.add(getStatistics001("DIF由多轉空", "月上"));
+//		lists.add(getStatistics001("DIF由多轉空", "月下"));
+//
+//		lists.add(getStatistics001("DIF持續走空", "月上"));
+//		lists.add(getStatistics001("DIF持續走空", "月下"));
+//
+//		lists.add(getStatistics001("DIF由空轉多", "月上"));
+//		lists.add(getStatistics001("DIF由空轉多", "月下"));
 
 		return RestResponse.success(lists, lists.size());
 	}

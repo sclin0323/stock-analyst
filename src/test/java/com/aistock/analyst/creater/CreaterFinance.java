@@ -1,7 +1,8 @@
-package com.aistock.analyst.create;
+package com.aistock.analyst.creater;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -18,27 +19,28 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.aistock.analyst.config.MongoConfig;
 import com.aistock.analyst.entity.DailyAveIndex;
 import com.aistock.analyst.entity.Dashboard;
+import com.aistock.analyst.entity.Finance;
 import com.aistock.analyst.repository.DailyAveIndexRepository;
 import com.aistock.analyst.repository.DailyStockRepository;
 import com.aistock.analyst.repository.DashboardRepository;
+import com.aistock.analyst.repository.FinanceRepository;
 import com.aistock.analyst.status.StockStatus;
 
-
 /*
- * 建立大盤 統計表 (Dashboards)
+ * 建立和更新金融(Finances) 統計表 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("com.aistock.analyst.service")
 @Import(value = { MongoConfig.class })
-public class DashBoardCreater {
+public class CreaterFinance {
 
-	Logger log = LoggerFactory.getLogger(DashBoardCreater.class);
+	Logger log = LoggerFactory.getLogger(CreaterFinance.class);
 
 	@Autowired
 	DailyAveIndexRepository dailyAveIndexRepository;
 
 	@Autowired
-	DashboardRepository dashboardRepository;
+	FinanceRepository financeRepository;
 	
 	@Autowired
 	DailyStockRepository dailyStockRepository;
@@ -47,20 +49,21 @@ public class DashBoardCreater {
 	@Test
 	public void test001() throws Exception {
 		
-		dashboardRepository.deleteAll();
 		
+		
+		financeRepository.deleteAll();
 
-		List<DailyAveIndex> lists = dailyAveIndexRepository.findByName("加權指數");
+		List<DailyAveIndex> lists = dailyAveIndexRepository.findByName("金融保險");
 
 		for (DailyAveIndex dailyAveIndex : lists) {
 			
 			String date = dailyAveIndex.getDate();
 			
-			Dashboard o = new Dashboard();
+			Finance o = new Finance();
 			
 			log.info(date);
-
-			o.setDashboardId(date);
+			
+			o.setFinanceId(date);
 			o.setDay(getDay(dailyAveIndex.getDate()));
 			o.setMonthStatus(dailyAveIndex.getMonthStatus());
 			o.setDifStatus(dailyAveIndex.getDifStatus());
@@ -68,33 +71,35 @@ public class DashBoardCreater {
 			o.setRange(dailyAveIndex.getRange());
 			o.setVolume(dailyAveIndex.getVolume());
 			
-			// 個股 DIF狀態
-			o.setStatusDifA(dailyStockRepository.findByDateAndDifStatus(date,StockStatus.DIF_STATUSA).size());
-			o.setStatusDifB(dailyStockRepository.findByDateAndDifStatus(date,StockStatus.DIF_STATUSB).size());
-			o.setStatusDifC(dailyStockRepository.findByDateAndDifStatus(date,StockStatus.DIF_STATUSC).size());
-			o.setStatusDifD(dailyStockRepository.findByDateAndDifStatus(date,StockStatus.DIF_STATUSD).size());
+			// 個股 FID狀態
+			o.setStatusDifA(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSA,StockStatus.FINANCES_LIST).size());
+			o.setStatusDifB(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSB,StockStatus.FINANCES_LIST).size());
+			o.setStatusDifC(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSC,StockStatus.FINANCES_LIST).size());
+			o.setStatusDifD(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSD,StockStatus.FINANCES_LIST).size());
 
 			// 個股 月線狀態
-			o.setStatusMonthA(dailyStockRepository.findByDateAndMonthStatus(date,StockStatus.MONTH_STATUSA).size());
-			o.setStatusMonthB(dailyStockRepository.findByDateAndMonthStatus(date,StockStatus.MONTH_STATUSB).size());
-			o.setStatusMonthC(dailyStockRepository.findByDateAndMonthStatus(date,StockStatus.MONTH_STATUSC).size());
-			o.setStatusMonthD(dailyStockRepository.findByDateAndMonthStatus(date,StockStatus.MONTH_STATUSD).size());
+			o.setStatusMonthA(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSA,StockStatus.FINANCES_LIST).size());
+			o.setStatusMonthB(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSB,StockStatus.FINANCES_LIST).size());
+			o.setStatusMonthC(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSC,StockStatus.FINANCES_LIST).size());
+			o.setStatusMonthD(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSD,StockStatus.FINANCES_LIST).size());
 
-			dashboardRepository.save(o);
-
+			financeRepository.save(o);
+			
 		}
+		
+		
 
 	}
 	
 	@Test
 	public void test002() throws Exception {
-		List<Dashboard> lists = dashboardRepository.findAll();
+		List<Finance> lists = financeRepository.findAll();
 		
-		for(Dashboard o : lists) {
+		for(Finance o : lists) {
 			// 後 2 3 14日實際漲跌點
 			setValues(o);
 			
-			dashboardRepository.save(o);
+			financeRepository.save(o);
 		}
 	}
 
@@ -108,11 +113,11 @@ public class DashBoardCreater {
 
 	}
 	
-	private void setValues(Dashboard o) {
+	private void setValues(Finance o) {
 
 		SimpleDateFormat dt1 = new SimpleDateFormat("yyyyMMdd");
 		try {
-			String startDay = o.getDashboardId();
+			String startDay = o.getFinanceId();
 			Date date = dt1.parse(startDay);
 			// 計算 date 後14天
 			Calendar specialDate = Calendar.getInstance();
@@ -122,12 +127,12 @@ public class DashBoardCreater {
 			Date day = specialDate.getTime();
 			String endDay = dt1.format(day);
 
-			List<Dashboard> datas = dashboardRepository.findByDashboardIdBetweenOrderByDashboardIdDesc(startDay,
+			List<Finance> datas = financeRepository.findByFinanceIdBetweenOrderByFinanceIdDesc(startDay,
 					endDay);
 
 			if (datas.size() >= 4) {
 				// 過濾近幾天的資料
-				if (Integer.parseInt(datas.get(0).getDashboardId()) - Integer.parseInt(startDay) < 5) {
+				if (Integer.parseInt(datas.get(0).getFinanceId()) - Integer.parseInt(startDay) < 5) {
 					return;
 				}
 				// 14天

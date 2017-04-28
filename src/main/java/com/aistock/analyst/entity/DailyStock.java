@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "dailyStocks")
@@ -11,6 +12,9 @@ public class DailyStock {
 
 	@Id
 	ObjectId dailyStockId; // Date String
+	
+	@Transient
+	String stockId;
 	
 	String date;
 	
@@ -29,6 +33,14 @@ public class DailyStock {
 	Integer volume;
 
 	
+
+	public String getStockId() {
+		return stockId;
+	}
+
+	public void setStockId(String stockId) {
+		this.stockId = stockId;
+	}
 
 	public String getStockNum() {
 		return stockNum;

@@ -16,20 +16,23 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.aistock.analyst.config.MongoConfig;
+import com.aistock.analyst.entity.DailyAveIndex;
 import com.aistock.analyst.entity.Dashboard;
 import com.aistock.analyst.repository.DailyAveIndexRepository;
 import com.aistock.analyst.repository.DailyStockRepository;
 import com.aistock.analyst.repository.DashboardRepository;
+import com.aistock.analyst.status.StockStatus;
+
 
 /*
- * 更新 大盤Dashboards 1 2 3 14天上漲下跌點
+ * 建立大盤 統計表 (Dashboards)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("com.aistock.analyst.service")
 @Import(value = { MongoConfig.class })
-public class U2StockDifSumUpdate {
-	
-	Logger log = LoggerFactory.getLogger(U1DashBoardUpdate.class);
+public class DashBoardCreater {
+
+	Logger log = LoggerFactory.getLogger(DashBoardCreater.class);
 
 	@Autowired
 	DailyAveIndexRepository dailyAveIndexRepository;
@@ -40,10 +43,51 @@ public class U2StockDifSumUpdate {
 	@Autowired
 	DailyStockRepository dailyStockRepository;
 	
+
+	@Test
+	public void test001() throws Exception {
+		
+		dashboardRepository.deleteAll();
+		
+
+		List<DailyAveIndex> lists = dailyAveIndexRepository.findByName("加權指數");
+
+		for (DailyAveIndex dailyAveIndex : lists) {
+			
+			String date = dailyAveIndex.getDate();
+			
+			Dashboard o = new Dashboard();
+			
+			log.info(date);
+
+			o.setDashboardId(date);
+			o.setDay(getDay(dailyAveIndex.getDate()));
+			o.setMonthStatus(dailyAveIndex.getMonthStatus());
+			o.setDifStatus(dailyAveIndex.getDifStatus());
+			o.setClose(dailyAveIndex.getClose());
+			o.setRange(dailyAveIndex.getRange());
+			o.setVolume(dailyAveIndex.getVolume());
+			
+			// 個股 DIF狀態
+			o.setStatusDifA(dailyStockRepository.findByDateAndDifStatus(date,StockStatus.DIF_STATUSA).size());
+			o.setStatusDifB(dailyStockRepository.findByDateAndDifStatus(date,StockStatus.DIF_STATUSB).size());
+			o.setStatusDifC(dailyStockRepository.findByDateAndDifStatus(date,StockStatus.DIF_STATUSC).size());
+			o.setStatusDifD(dailyStockRepository.findByDateAndDifStatus(date,StockStatus.DIF_STATUSD).size());
+
+			// 個股 月線狀態
+			o.setStatusMonthA(dailyStockRepository.findByDateAndMonthStatus(date,StockStatus.MONTH_STATUSA).size());
+			o.setStatusMonthB(dailyStockRepository.findByDateAndMonthStatus(date,StockStatus.MONTH_STATUSB).size());
+			o.setStatusMonthC(dailyStockRepository.findByDateAndMonthStatus(date,StockStatus.MONTH_STATUSC).size());
+			o.setStatusMonthD(dailyStockRepository.findByDateAndMonthStatus(date,StockStatus.MONTH_STATUSD).size());
+
+			dashboardRepository.save(o);
+
+		}
+
+	}
 	
 	@Test
-	public void test001() {
-		
+	public void test002() throws Exception {
 		List<Dashboard> lists = dashboardRepository.findAll();
 		
 		for(Dashboard o : lists) {
@@ -52,7 +96,16 @@ public class U2StockDifSumUpdate {
 			
 			dashboardRepository.save(o);
 		}
-		
+	}
+
+	private String getDay(String date) throws ParseException {
+
+		SimpleDateFormat dt1 = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat dt2 = new SimpleDateFormat("E");
+		Date d = dt1.parse(date);
+		String day = dt2.format(d);
+		return day;
+
 	}
 	
 	private void setValues(Dashboard o) {
@@ -100,5 +153,7 @@ public class U2StockDifSumUpdate {
 		}
 
 	}
+	
+
 
 }

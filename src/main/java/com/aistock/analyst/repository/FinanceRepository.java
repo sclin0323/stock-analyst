@@ -14,10 +14,12 @@ import com.aistock.analyst.entity.Finance;
 @Repository
 public interface FinanceRepository extends MongoRepository<Finance, String> {
 	
-	//public List<Finance> findByDashboardIdBetweenOrderByDashboardIdDesc(String start, String end);
+	public List<Finance> findByFinanceIdBetweenOrderByFinanceIdDesc(String start, String end);
 	
-	//public Page<Finance> findByDifStatus(String difStatus, Pageable pageable);
+	public Page<Finance> findByDifStatus(String difStatus, Pageable pageable);
 
-	//public Page<Finance> findByDifStatusAndMonthStatusContaining(String difStatus, String monthStatus, Pageable pageable);
+	public Page<Finance> findByDifStatusAndMonthStatusContaining(String difStatus, String monthStatus, Pageable pageable);
+	
+	public List<Finance> findByDifStatusAndMonthStatusContaining(String difStatus, String monthStatus);
 }
 

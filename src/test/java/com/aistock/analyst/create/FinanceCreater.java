@@ -31,9 +31,9 @@ import com.aistock.analyst.status.StockStatus;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan("com.aistock.analyst.service")
 @Import(value = { MongoConfig.class })
-public class U3FinanceCreater {
+public class FinanceCreater {
 
-	Logger log = LoggerFactory.getLogger(U3FinanceCreater.class);
+	Logger log = LoggerFactory.getLogger(FinanceCreater.class);
 
 	@Autowired
 	DailyAveIndexRepository dailyAveIndexRepository;
@@ -83,7 +83,7 @@ public class U3FinanceCreater {
 		fs.add("5880");
 		fs.add("6005");
 		
-		
+		financeRepository.deleteAll();
 
 		List<DailyAveIndex> lists = dailyAveIndexRepository.findByName("金融保險");
 
@@ -91,17 +91,10 @@ public class U3FinanceCreater {
 			
 			String date = dailyAveIndex.getDate();
 			
-			// 檢查 Finances 是否已經存在
-			if(financeRepository.findOne(date) != null) {
-				continue;
-			} 
-			
 			Finance o = new Finance();
 			
 			log.info(date);
 			
-			
-
 			o.setFinanceId(date);
 			o.setDay(getDay(dailyAveIndex.getDate()));
 			o.setMonthStatus(dailyAveIndex.getMonthStatus());

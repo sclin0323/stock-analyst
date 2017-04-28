@@ -61,7 +61,7 @@ public class ImportDailyStock {
 				String[] strArray = line.replaceAll("\\s+", "").split(":");
 				
 				String date = strArray[0].split("\\.")[0];
-				String stockName = (file.getName()).split("\\.")[0].split("_")[1];
+				String stockName = strArray[1];
 				String monthStatus = strArray[2];
 				String difStatus = strArray[3];
 				Double range = Double.parseDouble(strArray[4]);

@@ -63,6 +63,8 @@ public class ImportDailyStock {
 				
 				Double difValue = Double.parseDouble(strArray[7]);
 				Long foreignInvest = (long)Float.parseFloat(strArray[8]);
+				Long foreignInvestIn30Days = (long)Float.parseFloat(strArray[9]);
+				Long volumeInvestIn30Days = (long)Float.parseFloat(strArray[10]);
 				
 				log.info(date+" "+stockName+" "+Double.parseDouble(strArray[7])+" "+(long)Float.parseFloat(strArray[8]));
 				
@@ -71,6 +73,8 @@ public class ImportDailyStock {
 				if(o!= null) {
 					o.setDifValue(difValue);
 					o.setForeignInvest(foreignInvest);
+					o.setForeignInvestIn30Days(foreignInvestIn30Days);
+					o.setVolumeInvestIn30Days(volumeInvestIn30Days);
 					dailyStockRepository.save(o);
 				}
 				

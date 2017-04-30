@@ -41,10 +41,30 @@ public class DailyStock {
 	// 外資進出
 	Long foreignInvest;
 	
+	// 外資進出累積30天
+	Long foreignInvestIn30Days;
+	
+	// 成交量累積30天
+	Long volumeInvestIn30Days;
 	
 
 	
 	
+	public Long getForeignInvestIn30Days() {
+		return foreignInvestIn30Days;
+	}
+
+	public void setForeignInvestIn30Days(Long foreignInvestIn30Days) {
+		this.foreignInvestIn30Days = foreignInvestIn30Days;
+	}
+
+	public Long getVolumeInvestIn30Days() {
+		return volumeInvestIn30Days;
+	}
+
+	public void setVolumeInvestIn30Days(Long volumeInvestIn30Days) {
+		this.volumeInvestIn30Days = volumeInvestIn30Days;
+	}
 
 	public Double getDifValue() {
 		return difValue;

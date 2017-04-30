@@ -1,4 +1,4 @@
-package com.aistock.analyst.imports;
+package com.aistock.test;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -41,18 +41,11 @@ public class ImportDailyStock {
 			
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "Big5"));
 			
+			String stockNum = (file.getName().split("\\."))[0].split("_")[1];
 			log.info(file.getName());
 			
 			if(!file.getName().contains("個股日線追蹤")) {
 				continue;
-			}
-			
-			// 找出該 stockNum 已經存在的 date
-			String stockNum = (file.getName().split("\\."))[0].split("_")[1];
-			List<DailyStock> lists = dailyStockRepository.findByStockNum(stockNum);
-			Map<String, Boolean> maps = new HashMap<String, Boolean>();
-			for(DailyStock o:lists) {
-				maps.put(o.getDate(), true);
 			}
 			
 			String line;
@@ -71,29 +64,22 @@ public class ImportDailyStock {
 				Double difValue = Double.parseDouble(strArray[7]);
 				Long foreignInvest = (long)Float.parseFloat(strArray[8]);
 				
-				DailyStock o = new DailyStock();
+				log.info(date+" "+stockName+" "+Double.parseDouble(strArray[7])+" "+(long)Float.parseFloat(strArray[8]));
 				
-				o.setDailyStockId(new ObjectId());
-				o.setDate(date);
-				o.setStockNum(stockNum);
-				o.setStockName(stockName);
-				o.setMonthStatus(monthStatus);
-				o.setDifStatus(difStatus);
-				o.setRange(range);
-				o.setClose(close);
-				o.setVolume(volume);
-				o.setDifValue(difValue);
-				o.setForeignInvest(foreignInvest);
+				DailyStock o = dailyStockRepository.findByDateAndStockNum(date, stockNum);
 				
-				// 檢查是否已經存在
-				if(maps.containsKey(date) == true){
-					//log.info("存在!! "+date+" "+stockNum);
-					continue;
+				if(o!= null) {
+					o.setDifValue(difValue);
+					o.setForeignInvest(foreignInvest);
+					dailyStockRepository.save(o);
 				}
 				
-				dailyStockRepository.save(o);
+				
+				
+				
 			}
 			
+			//break;
 			
 		}
 		

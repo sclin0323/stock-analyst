@@ -26,13 +26,41 @@ public class DailyStock {
 	
 	String difStatus;
 	
+	// 漲跌幅
 	Double range;
 	
+	// 收盤價
 	Double close;
 	
+	// 成交量
 	Integer volume;
 
+	// DIF值
+	Double difValue;
 	
+	// 外資進出
+	Long foreignInvest;
+	
+	
+
+	
+	
+
+	public Double getDifValue() {
+		return difValue;
+	}
+
+	public void setDifValue(Double difValue) {
+		this.difValue = difValue;
+	}
+
+	public Long getForeignInvest() {
+		return foreignInvest;
+	}
+
+	public void setForeignInvest(Long foreignInvest) {
+		this.foreignInvest = foreignInvest;
+	}
 
 	public String getStockId() {
 		return stockId;

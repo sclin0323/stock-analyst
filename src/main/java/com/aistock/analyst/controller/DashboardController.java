@@ -21,8 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aistock.analyst.entity.DailyStock;
 import com.aistock.analyst.entity.Dashboard;
+import com.aistock.analyst.repository.DailyStockRepository;
 import com.aistock.analyst.service.DashboardService;
+import com.aistock.analyst.status.StockStatus;
 import com.aistock.analyst.util.RestResponse;
 
 @RestController
@@ -34,6 +37,9 @@ public class DashboardController extends BaseController {
 
 	@Autowired(required = true)
 	DashboardService dashboardService;
+	
+	@Autowired(required = true)
+	DailyStockRepository dailyStockRepository;
 
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public RestResponse read(HttpServletRequest request, HttpServletResponse response, String difStatus, String monthStatus) throws IOException {
@@ -59,6 +65,19 @@ public class DashboardController extends BaseController {
 		Page<Dashboard> datas = dashboardService.findAll(pageable);
 
 		return RestResponse.success(datas.getContent(), datas.getTotalElements());
+
+	}
+	
+	@RequestMapping(value = "/readDashboardStock", method = RequestMethod.GET)
+	public RestResponse readDashboardStock(HttpServletRequest request, HttpServletResponse response, String dashboardId) throws IOException {
+		
+		List<DailyStock> datas = dailyStockRepository.findByDateAndStockNumIn(dashboardId, StockStatus.WEIGHT_LIST);
+		
+		datas.forEach((DailyStock o) -> {
+			o.setStockId(o.getDate()+o.getStockNum());
+		});
+
+		return RestResponse.success(datas, datas.size());
 
 	}
 

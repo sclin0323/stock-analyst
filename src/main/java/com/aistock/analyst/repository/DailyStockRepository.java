@@ -27,5 +27,7 @@ public interface DailyStockRepository extends MongoRepository<DailyStock, String
 
 	//@Query(value="{ 'stockNum' : ?0 }", fields="{ 'date' : 1}")
 	public List<DailyStock> findByStockNum(String stockNum);
+	
+	public List<DailyStock> findByStockNumOrderByDateDesc(String stockNum);
 }
 

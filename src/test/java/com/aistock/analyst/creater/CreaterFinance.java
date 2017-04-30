@@ -18,12 +18,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.aistock.analyst.config.MongoConfig;
 import com.aistock.analyst.entity.DailyAveIndex;
-import com.aistock.analyst.entity.Dashboard;
 import com.aistock.analyst.entity.Finance;
+import com.aistock.analyst.entity.FinanceStock;
 import com.aistock.analyst.repository.DailyAveIndexRepository;
 import com.aistock.analyst.repository.DailyStockRepository;
-import com.aistock.analyst.repository.DashboardRepository;
 import com.aistock.analyst.repository.FinanceRepository;
+import com.aistock.analyst.repository.FinanceStockRepository;
 import com.aistock.analyst.status.StockStatus;
 
 /*
@@ -45,9 +45,18 @@ public class CreaterFinance {
 	@Autowired
 	DailyStockRepository dailyStockRepository;
 	
+	@Autowired
+	FinanceStockRepository financeStockRepository;
+	
 
 	@Test
 	public void test001() throws Exception {
+		
+		List<FinanceStock> fs = financeStockRepository.findAll();
+		List<String> arrays = new ArrayList<String>();
+		for(FinanceStock o : fs) {
+			arrays.add(o.getFinanceStockId());
+		}
 		
 		
 		
@@ -72,16 +81,16 @@ public class CreaterFinance {
 			o.setVolume(dailyAveIndex.getVolume());
 			
 			// 個股 FID狀態
-			o.setStatusDifA(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSA,StockStatus.FINANCES_LIST).size());
-			o.setStatusDifB(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSB,StockStatus.FINANCES_LIST).size());
-			o.setStatusDifC(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSC,StockStatus.FINANCES_LIST).size());
-			o.setStatusDifD(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSD,StockStatus.FINANCES_LIST).size());
+			o.setStatusDifA(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSA,arrays).size());
+			o.setStatusDifB(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSB,arrays).size());
+			o.setStatusDifC(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSC,arrays).size());
+			o.setStatusDifD(dailyStockRepository.findByDateAndDifStatusAndStockNumIn(date,StockStatus.DIF_STATUSD,arrays).size());
 
 			// 個股 月線狀態
-			o.setStatusMonthA(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSA,StockStatus.FINANCES_LIST).size());
-			o.setStatusMonthB(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSB,StockStatus.FINANCES_LIST).size());
-			o.setStatusMonthC(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSC,StockStatus.FINANCES_LIST).size());
-			o.setStatusMonthD(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSD,StockStatus.FINANCES_LIST).size());
+			o.setStatusMonthA(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSA,arrays).size());
+			o.setStatusMonthB(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSB,arrays).size());
+			o.setStatusMonthC(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSC,arrays).size());
+			o.setStatusMonthD(dailyStockRepository.findByDateAndMonthStatusAndStockNumIn(date,StockStatus.MONTH_STATUSD,arrays).size());
 
 			financeRepository.save(o);
 			

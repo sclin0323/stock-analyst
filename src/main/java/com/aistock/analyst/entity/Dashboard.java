@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Dashboard {
 
 	@Id
-	String dashboardId;
+	String dashboardId;	// Date
 
 	String day;
 

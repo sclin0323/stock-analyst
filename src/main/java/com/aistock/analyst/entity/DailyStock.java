@@ -36,6 +36,9 @@ public class DailyStock {
 	
 	// 成交量
 	Integer volume;
+	
+	// 成交量累積30天
+	Long volumeInvestIn30Days;
 
 	// DIF值
 	Double difValue;
@@ -46,13 +49,19 @@ public class DailyStock {
 	// 外資進出累積30天
 	Long foreignInvestIn30Days;
 	
-	// 成交量累積30天
-	Long volumeInvestIn30Days;
-	
-	
+	// 外資進出累積30天狀態
+	String foreignInvestIn30DaysStatus;
 
 	
 	
+	public String getForeignInvestIn30DaysStatus() {
+		return foreignInvestIn30DaysStatus;
+	}
+
+	public void setForeignInvestIn30DaysStatus(String foreignInvestIn30DaysStatus) {
+		this.foreignInvestIn30DaysStatus = foreignInvestIn30DaysStatus;
+	}
+
 	public String getNote() {
 		return note;
 	}

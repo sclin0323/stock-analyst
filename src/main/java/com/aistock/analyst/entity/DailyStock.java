@@ -26,6 +26,8 @@ public class DailyStock {
 	
 	String difStatus;
 	
+	String note;
+	
 	// 漲跌幅
 	Double range;
 	
@@ -47,9 +49,18 @@ public class DailyStock {
 	// 成交量累積30天
 	Long volumeInvestIn30Days;
 	
+	
 
 	
 	
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
 	public Long getForeignInvestIn30Days() {
 		return foreignInvestIn30Days;
 	}

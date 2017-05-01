@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,13 +58,15 @@ public class FutureStockInvestController extends BaseController{
 	@RequestMapping(value = "/readFutureStockHistory", method = RequestMethod.GET)
 	public RestResponse readFutureStockHistory(HttpServletRequest request, HttpServletResponse response, String stockNum) throws IOException {
 		
-		List<DailyStock> datas = dailyStockRepository.findByStockNumOrderByDateDesc(stockNum);
+		Pageable pageable = getPageable(request);
+		
+		Page<DailyStock> datas = dailyStockRepository.findByStockNumOrderByDateDesc(stockNum, pageable);
 
 		datas.forEach((DailyStock o) -> {
 			o.setStockId(o.getDate() + o.getStockNum());
 		});
 
-		return RestResponse.success(datas, datas.size());
+		return RestResponse.success(datas.getContent(), datas.getTotalElements());
 	}
 	
 	

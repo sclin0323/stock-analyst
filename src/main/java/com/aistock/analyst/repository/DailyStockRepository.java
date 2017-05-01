@@ -3,6 +3,8 @@ package com.aistock.analyst.repository;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -29,6 +31,8 @@ public interface DailyStockRepository extends MongoRepository<DailyStock, String
 	public List<DailyStock> findByStockNum(String stockNum);
 	
 	public List<DailyStock> findByStockNumOrderByDateDesc(String stockNum);
+	
+	public Page<DailyStock> findByStockNumOrderByDateDesc(String stockNum, Pageable pageable);
 	
 	public DailyStock findByDateAndStockNum(String date, String stockNum);
 }

@@ -11,9 +11,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.aistock.analyst.config.MongoConfig;
 import com.aistock.analyst.entity.FutureStock;
+import com.aistock.analyst.entity.Taiwan50Stock;
 import com.aistock.analyst.imports.ImportDailyStock;
 import com.aistock.analyst.repository.DailyStockRepository;
 import com.aistock.analyst.repository.FutureStockRepository;
+import com.aistock.analyst.repository.Taiwan50StockRepository;
 import com.aistock.analyst.status.StockStatus;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,27 +28,28 @@ public class InsertFutureStock {
 	DailyStockRepository dailyStockRepository;
 	
 	@Autowired
-	FutureStockRepository futureStockRepository;
+	Taiwan50StockRepository taiwan50StockRepository;
 
 	@Test
 	public void test001() throws Exception {
-		/*
 		
-		for(String stockNum: StockStatus.FUTURE_LIST) {
+		/*
+		for(String stockNum: StockStatus.WEIGHT_LIST) {
 			
 			String stockName = dailyStockRepository.findByStockNum(stockNum).get(0).getStockName();
 			
-			FutureStock o = new FutureStock();
-			o.setFutureStockId(stockNum);
+			Taiwan50Stock o = new Taiwan50Stock();
+			o.setTaiwan50StockId(stockNum);
 			o.setEnabled(false);
 			o.setStockName(stockName);
 			o.setWeight(100);
 			o.setNote("");
 			
 			
-			futureStockRepository.save(o);
+			taiwan50StockRepository.save(o);
 		}
 		*/
+		
 		
 	}
 

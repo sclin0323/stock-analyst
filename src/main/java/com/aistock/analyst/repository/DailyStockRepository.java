@@ -1,5 +1,6 @@
 package com.aistock.analyst.repository;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -27,7 +28,6 @@ public interface DailyStockRepository extends MongoRepository<DailyStock, String
 	
 	public List<DailyStock> findByDateAndStockNumIn(String date, List<String> stockNums);
 
-	//@Query(value="{ 'stockNum' : ?0 }", fields="{ 'date' : 1}")
 	public List<DailyStock> findByStockNum(String stockNum);
 	
 	public List<DailyStock> findByStockNumOrderByDateDesc(String stockNum);
@@ -35,5 +35,24 @@ public interface DailyStockRepository extends MongoRepository<DailyStock, String
 	public Page<DailyStock> findByStockNumOrderByDateDesc(String stockNum, Pageable pageable);
 	
 	public DailyStock findByDateAndStockNum(String date, String stockNum);
+
+	public List<DailyStock> findByForeignInvestIn30DaysStatus(String status);
+
+	public List<DailyStock> findByStockNumAndDateBetweenOrderByDateDesc(String stockNum, String startDay, String endDay);
+
+	public List<DailyStock> findByDifStatusAndMonthStatusContainingAndForeignInvestIn30DaysStatusAndVolumeInvestIn30DaysGreaterThan(String difStatus, String monthStatus, String investStatus, long volume);
+
+	public List<DailyStock> findByDifStatusAndMonthStatusContainingAndForeignInvestIn30DaysStatusAndStockNumIn(String difStatus, String monthStatus, String investStatus, ArrayList<String> weightList);
+
+	public Page<DailyStock> findByDifStatusAndMonthStatusContainingAndForeignInvestIn30DaysStatusAndVolumeInvestIn30DaysGreaterThanOrderByVolumeInvestIn30Days(
+			String difStatus, String monthStatus, String investStatus, long l, Pageable pageable);
+
+	public Page<DailyStock> findByDate(String date, Pageable pageable);
+
+	public Page<DailyStock> findByDateAndDifStatus(String date, String difStatus, Pageable pageable);
+
+	public Page<DailyStock> findByDateInAndDifStatus(List<String> dates, String difStatus, Pageable pageable);
+
+	
 }
 

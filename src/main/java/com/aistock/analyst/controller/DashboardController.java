@@ -14,17 +14,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.aistock.analyst.entity.DailyStock;
 import com.aistock.analyst.entity.Dashboard;
 import com.aistock.analyst.repository.DailyStockRepository;
 import com.aistock.analyst.service.DashboardService;
+import com.aistock.analyst.service.Taiwan50StockService;
 import com.aistock.analyst.status.StockStatus;
 import com.aistock.analyst.util.RestResponse;
 
@@ -37,6 +35,9 @@ public class DashboardController extends BaseController {
 
 	@Autowired(required = true)
 	DashboardService dashboardService;
+	
+	@Autowired(required = true)
+	Taiwan50StockService taiwan50StockService;
 	
 	@Autowired(required = true)
 	DailyStockRepository dailyStockRepository;
@@ -71,7 +72,9 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value = "/readDashboardStock", method = RequestMethod.GET)
 	public RestResponse readDashboardStock(HttpServletRequest request, HttpServletResponse response, String dashboardId) throws IOException {
 		
-		List<DailyStock> datas = dailyStockRepository.findByDateAndStockNumIn(dashboardId, StockStatus.WEIGHT_LIST);
+		List<String> stockList = taiwan50StockService.getStockList();
+		
+		List<DailyStock> datas = dailyStockRepository.findByDateAndStockNumIn(dashboardId, stockList);
 		
 		datas.forEach((DailyStock o) -> {
 			o.setStockId(o.getDate()+o.getStockNum());

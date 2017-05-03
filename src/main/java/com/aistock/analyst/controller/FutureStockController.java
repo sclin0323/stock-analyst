@@ -42,25 +42,25 @@ public class FutureStockController extends BaseController{
 	}
 	
 	@RequestMapping(value="/create", method = RequestMethod.POST)
-	public RestResponse create(@RequestBody FutureStock futureStock){
+	public RestResponse create(@RequestBody FutureStock obj){
 
 
-		FutureStock o = futureStockService.create(futureStock);
+		FutureStock o = futureStockService.create(obj);
 		return RestResponse.success(o);
 		
 	}
 
 	@RequestMapping(value="/update", method = RequestMethod.PUT)
-	public RestResponse update(@RequestBody FutureStock futureStock){
+	public RestResponse update(@RequestBody FutureStock obj){
 
-		FutureStock o = futureStockService.update(futureStock);
+		FutureStock o = futureStockService.update(obj);
 		return RestResponse.success(o);
 	}
 
 	@RequestMapping(value="/destroy", method = RequestMethod.DELETE)
-	public RestResponse destroy(@RequestBody FutureStock futureStock){
+	public RestResponse destroy(@RequestBody FutureStock obj){
 
-		FutureStock o = futureStockService.delete(futureStock);
+		FutureStock o = futureStockService.delete(obj);
 
 		return RestResponse.success(o);
 	}

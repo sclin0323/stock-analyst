@@ -9,10 +9,10 @@ public interface FutureStockService {
 
 	Page<FutureStock> findAll(Pageable pageable);
 
-	FutureStock create(FutureStock futureStock);
+	FutureStock create(FutureStock obj);
 
-	FutureStock update(FutureStock futureStock);
+	FutureStock update(FutureStock obj);
 
-	FutureStock delete(FutureStock futureStock);
+	FutureStock delete(FutureStock obj);
 
 }

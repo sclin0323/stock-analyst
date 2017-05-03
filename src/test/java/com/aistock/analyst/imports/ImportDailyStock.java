@@ -70,6 +70,11 @@ public class ImportDailyStock {
 				
 				Double difValue = Double.parseDouble(strArray[7]);
 				Long foreignInvest = (long)Float.parseFloat(strArray[8]);
+				Long foreignInvestIn30Days = (long)Float.parseFloat(strArray[9]);
+				Long volumeInvestIn30Days = (long)Float.parseFloat(strArray[10]);
+				String foreignInvestIn30DaysStatus = "";
+				if(strArray.length == 12)
+					foreignInvestIn30DaysStatus = strArray[11];
 				
 				DailyStock o = new DailyStock();
 				
@@ -84,6 +89,9 @@ public class ImportDailyStock {
 				o.setVolume(volume);
 				o.setDifValue(difValue);
 				o.setForeignInvest(foreignInvest);
+				o.setForeignInvestIn30Days(foreignInvestIn30Days);
+				o.setVolumeInvestIn30Days(volumeInvestIn30Days);
+				o.setForeignInvestIn30DaysStatus(foreignInvestIn30DaysStatus);
 				
 				// 檢查是否已經存在
 				if(maps.containsKey(date) == true){

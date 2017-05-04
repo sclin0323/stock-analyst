@@ -98,6 +98,29 @@ public class Statistics001Controller extends BaseController {
 				down60After14Days++;
 		}
 		o.setDown60After14Days(down60After14Days);
+		
+		// 計算 sumUpAfter14Days 總上漲點數
+		// 計算 sumUpPcAfter14Days 總上漲％
+		// 計算 sumDownAfter14Days 總下跌點數
+		// 計算 sumDownPcAfter14Days 總下跌％
+		Double sumUpAfter14Days = 0.0;
+		Double sumUpPcAfter14Days = 0.0;
+		Double sumDownAfter14Days = 0.0;
+		Double sumDownPcAfter14Days = 0.0;
+		for (Dashboard d : datas) {
+			if(d.getRange() > 0) {
+				sumUpAfter14Days += d.getRange();
+				sumUpPcAfter14Days += d.getRange() / (d.getClose() - d.getRange());
+			}
+			if(d.getRange() < 0) {
+				sumDownAfter14Days += d.getRange();
+				sumDownPcAfter14Days += d.getRange() / (d.getClose() - d.getRange());
+			}
+		}
+		o.setSumUpAfter14Days(sumUpAfter14Days);
+		o.setSumUpPcAfter14Days(sumUpPcAfter14Days);
+		o.setSumDownAfter14Days(sumDownAfter14Days);
+		o.setSumDownPcAfter14Days(sumDownPcAfter14Days);
 
 		return o;
 
@@ -113,7 +136,48 @@ public class Statistics001Controller extends BaseController {
 
 		Integer up60After14Days;
 		Integer down60After14Days;
+		
+		Double sumUpAfter14Days;
+		Double sumUpPcAfter14Days;
+		Double sumDownAfter14Days;
+		Double sumDownPcAfter14Days;
+		
 		Integer total;
+
+		
+		
+
+		public Double getSumUpAfter14Days() {
+			return sumUpAfter14Days;
+		}
+
+		public void setSumUpAfter14Days(Double sumUpAfter14Days) {
+			this.sumUpAfter14Days = sumUpAfter14Days;
+		}
+
+		public Double getSumUpPcAfter14Days() {
+			return sumUpPcAfter14Days;
+		}
+
+		public void setSumUpPcAfter14Days(Double sumUpPcAfter14Days) {
+			this.sumUpPcAfter14Days = sumUpPcAfter14Days;
+		}
+
+		public Double getSumDownAfter14Days() {
+			return sumDownAfter14Days;
+		}
+
+		public void setSumDownAfter14Days(Double sumDownAfter14Days) {
+			this.sumDownAfter14Days = sumDownAfter14Days;
+		}
+
+		public Double getSumDownPcAfter14Days() {
+			return sumDownPcAfter14Days;
+		}
+
+		public void setSumDownPcAfter14Days(Double sumDownPcAfter14Days) {
+			this.sumDownPcAfter14Days = sumDownPcAfter14Days;
+		}
 
 		public Integer getUp45After14Days() {
 			return up45After14Days;

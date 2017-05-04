@@ -35,12 +35,17 @@ public class DailyStockController extends BaseController {
 	public RestResponse read(HttpServletRequest request, HttpServletResponse response, String date, String difStatus, String monthStatus) throws IOException {
 		
 		List<String> dates = new ArrayList<String>();
-		dates.add("20170428");
-		dates.add("20170428");
-		dates.add("20170428");
+		dates.add("20170503");
+		//dates.add("20170428");
+		//dates.add("20170428");
 		
 		
 		Pageable pageable = getPageable(request);
+		
+		if(difStatus != null && monthStatus != null) {
+			Page<DailyStock> datas = dailyStockRepository.findByDateInAndDifStatusAndMonthStatusContaining(dates, difStatus, monthStatus, pageable);
+			return RestResponse.success(datas.getContent(), datas.getTotalElements());
+		}
 		
 		if(difStatus != null) {
 			Page<DailyStock> datas = dailyStockRepository.findByDateInAndDifStatus(dates, difStatus, pageable);
@@ -50,7 +55,7 @@ public class DailyStockController extends BaseController {
 		
 		
 
-		Page<DailyStock> datas = dailyStockRepository.findByDate(date, pageable);
+		Page<DailyStock> datas = dailyStockRepository.findByDate("20170503", pageable);
 
 		return RestResponse.success(datas.getContent(), datas.getTotalElements());
 

@@ -37,6 +37,7 @@ public class ImportDailyAveIndex {
 
 		files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_TSE.TW.log"));
 		files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_TSE28.TW.log"));
+		files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_OTC.TW.log"));
 
 		for (final File file : files) {
 

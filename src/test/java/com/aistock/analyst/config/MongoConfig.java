@@ -13,7 +13,7 @@ public class MongoConfig {
 	@Bean
 	public MongoTemplate mongoTemplate() throws Exception {
 		
-		MongoClient mongoClient = new MongoClient("192.168.191.137"); 
+		MongoClient mongoClient = new MongoClient("192.168.191.150"); 
 		
 		//mongoClient = new MongoClient(new ServerAddress(host,port),new MongoClientOptions.Builder()
         //        .socketKeepAlive(true) // 是否保持长链接

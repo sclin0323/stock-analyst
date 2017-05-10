@@ -1,29 +1,33 @@
 package com.aistock.analyst.entity;
 
-import java.util.ArrayList;
-
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "dailyStocks")
+@CompoundIndexes({
+    @CompoundIndex(name = "email_age", def = "{'email.id' : 1, 'age': 1}")
+})
 public class DailyStock {
 
 	@Id
-	ObjectId dailyStockId; // Date String
+	String dailyStockId; // Date String
 	
-	@Transient
-	String stockId;
-	
+	@Indexed
 	String date;
 	
+	@Indexed
 	String stockNum;
 	
+	@Indexed
 	String stockName;
 	
+	@Indexed
 	String monthStatus;
 	
+	@Indexed
 	String difStatus;
 	
 	String note;
@@ -50,6 +54,7 @@ public class DailyStock {
 	Long foreignInvestIn30Days;
 	
 	// 外資進出累積30天狀態
+	@Indexed
 	String foreignInvestIn30DaysStatus;
 
 	
@@ -102,14 +107,6 @@ public class DailyStock {
 		this.foreignInvest = foreignInvest;
 	}
 
-	public String getStockId() {
-		return stockId;
-	}
-
-	public void setStockId(String stockId) {
-		this.stockId = stockId;
-	}
-
 	public String getStockNum() {
 		return stockNum;
 	}
@@ -118,11 +115,13 @@ public class DailyStock {
 		this.stockNum = stockNum;
 	}
 
-	public ObjectId getDailyStockId() {
+	
+
+	public String getDailyStockId() {
 		return dailyStockId;
 	}
 
-	public void setDailyStockId(ObjectId dailyStockId) {
+	public void setDailyStockId(String dailyStockId) {
 		this.dailyStockId = dailyStockId;
 	}
 

@@ -21,7 +21,6 @@ public class FutureStock {
 	
 	String note;
 	
-	
 
 	public String getNote() {
 		return note;

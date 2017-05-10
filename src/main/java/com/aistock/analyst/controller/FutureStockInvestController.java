@@ -48,6 +48,9 @@ public class FutureStockInvestController extends BaseController{
 		
 		if(enabled != null) {
 			List<FutureStock> lists = futureStockRepository.findByEnabledOrderByWeightDesc(enabled);
+			
+			lists.get(10).setNote("Hello");
+			
 			return RestResponse.success(lists, lists.size());
 		}
 	
@@ -63,7 +66,7 @@ public class FutureStockInvestController extends BaseController{
 		Page<DailyStock> datas = dailyStockRepository.findByStockNumOrderByDateDesc(stockNum, pageable);
 
 		datas.forEach((DailyStock o) -> {
-			o.setStockId(o.getDate() + o.getStockNum());
+			//o.setStockId(o.getDate() + o.getStockNum());
 		});
 
 		return RestResponse.success(datas.getContent(), datas.getTotalElements());

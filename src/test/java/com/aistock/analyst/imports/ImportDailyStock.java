@@ -78,7 +78,7 @@ public class ImportDailyStock {
 				
 				DailyStock o = new DailyStock();
 				
-				o.setDailyStockId(new ObjectId());
+				o.setDailyStockId(date+"_"+stockNum);
 				o.setDate(date);
 				o.setStockNum(stockNum);
 				o.setStockName(stockName);

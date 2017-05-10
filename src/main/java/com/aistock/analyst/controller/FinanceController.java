@@ -84,7 +84,7 @@ public class FinanceController extends BaseController {
 		List<DailyStock> datas = dailyStockRepository.findByDateAndStockNumIn(financeId, fs);
 		
 		datas.forEach((DailyStock o) -> {
-			o.setStockId(o.getDate()+o.getStockNum());
+			//o.setStockId(o.getDate()+o.getStockNum());
 		});
 
 		return RestResponse.success(datas, datas.size());

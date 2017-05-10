@@ -61,7 +61,7 @@ public class ImportDailyAveIndex {
 
 				DailyAveIndex o = new DailyAveIndex();
 
-				o.setDailyAveIndexId(new ObjectId());
+				o.setDailyAveIndexId(date+"_"+name);
 				o.setDate(date);
 				o.setName(name);
 				o.setMonthStatus(monthStatus);

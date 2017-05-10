@@ -1,23 +1,26 @@
 package com.aistock.analyst.entity;
 
-import java.util.ArrayList;
-
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "dailyAveIndexs")
 public class DailyAveIndex {
 
 	@Id
-	ObjectId dailyAveIndexId;
+	String dailyAveIndexId;
 	
+	@Indexed
 	String date;
 	
 	String name;
 	
+	@Indexed
 	String monthStatus;
 	
+	@Indexed
 	String difStatus;
 	
 	Double range;
@@ -26,13 +29,11 @@ public class DailyAveIndex {
 	
 	Integer volume;
 
-	
-
-	public ObjectId getDailyAveIndexId() {
+	public String getDailyAveIndexId() {
 		return dailyAveIndexId;
 	}
 
-	public void setDailyAveIndexId(ObjectId dailyAveIndexId) {
+	public void setDailyAveIndexId(String dailyAveIndexId) {
 		this.dailyAveIndexId = dailyAveIndexId;
 	}
 

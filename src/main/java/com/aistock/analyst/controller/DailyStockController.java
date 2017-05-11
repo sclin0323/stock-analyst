@@ -1,7 +1,10 @@
 package com.aistock.analyst.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,12 +35,15 @@ public class DailyStockController extends BaseController {
 	DailyStockRepository dailyStockRepository;
 
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public RestResponse read(HttpServletRequest request, HttpServletResponse response, String date, String difStatus, String monthStatus) throws IOException {
+	public RestResponse read(HttpServletRequest request, HttpServletResponse response, String startDay, String difStatus, String monthStatus) throws IOException {
+		
 		
 		List<String> dates = new ArrayList<String>();
-		dates.add("20170503");
-		//dates.add("20170428");
-		//dates.add("20170428");
+		dates.add("20170510");
+		dates.add("20170509");
+		dates.add("20170508");
+		dates.add("20170507");
+		dates.add("20170506");
 		
 		
 		Pageable pageable = getPageable(request);
@@ -55,7 +61,7 @@ public class DailyStockController extends BaseController {
 		
 		
 
-		Page<DailyStock> datas = dailyStockRepository.findByDate("20170503", pageable);
+		Page<DailyStock> datas = dailyStockRepository.findByDate("20170510", pageable);
 
 		return RestResponse.success(datas.getContent(), datas.getTotalElements());
 

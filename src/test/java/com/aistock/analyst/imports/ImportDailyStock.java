@@ -95,7 +95,6 @@ public class ImportDailyStock {
 				
 				// 檢查是否已經存在
 				if(maps.containsKey(date) == true){
-					//log.info("存在!! "+date+" "+stockNum);
 					continue;
 				}
 				

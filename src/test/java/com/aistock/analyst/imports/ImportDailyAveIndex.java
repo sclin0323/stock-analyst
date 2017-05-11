@@ -72,7 +72,7 @@ public class ImportDailyAveIndex {
 				o.setVolume(volume);
 				
 				// 檢查是否已經存在
-				if(dailyAveIndexRepository.findByDateAndName(date, name) != null){
+				if(dailyAveIndexRepository.findOne(date+"_"+name) != null){
 					continue;
 				}
 				

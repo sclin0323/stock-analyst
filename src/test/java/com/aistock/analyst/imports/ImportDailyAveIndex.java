@@ -35,9 +35,13 @@ public class ImportDailyAveIndex {
 
 		ArrayList<File> files = new ArrayList<File>();
 
-		files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_TSE.TW.log"));
-		files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_TSE28.TW.log"));
-		files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_OTC.TW.log"));
+		//files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_TSE.TW.log"));
+		//files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_TSE28.TW.log"));
+		//files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_OTC.TW.log"));
+		
+		files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_DJI.FS.log"));
+		files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_IXIC.FS.log"));
+		files.add(new File("C:\\SysJust\\XQLite\\XS\\Print\\日常追蹤(台、金融、美股)_GSPC.FS.log"));
 
 		for (final File file : files) {
 

@@ -39,11 +39,11 @@ public class DailyStockController extends BaseController {
 		
 		
 		List<String> dates = new ArrayList<String>();
-		dates.add("20170510");
-		dates.add("20170509");
-		dates.add("20170508");
-		dates.add("20170507");
-		dates.add("20170506");
+		dates.add("20170512");
+		dates.add("20170511");
+		//dates.add("20170510");
+		//dates.add("20170509");
+		//dates.add("20170508");
 		
 		
 		Pageable pageable = getPageable(request);
@@ -61,7 +61,9 @@ public class DailyStockController extends BaseController {
 		
 		
 
-		Page<DailyStock> datas = dailyStockRepository.findByDate("20170510", pageable);
+		Page<DailyStock> datas = dailyStockRepository.findByDate("20170512", pageable);
+		
+		
 
 		return RestResponse.success(datas.getContent(), datas.getTotalElements());
 

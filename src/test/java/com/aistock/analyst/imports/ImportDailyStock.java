@@ -95,7 +95,8 @@ public class ImportDailyStock {
 				
 				// 檢查是否已經存在
 				if(maps.containsKey(date) == true){
-					continue;
+					DailyStock ds = dailyStockRepository.findOne(date+"_"+stockNum);
+					dailyStockRepository.delete(ds);
 				}
 				
 				dailyStockRepository.save(o);
